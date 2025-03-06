@@ -48,4 +48,16 @@ networks:
 
 volumes:
   mariadb:
+    name: mariadb
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/apintus/data/mysql
+      o: bind
   wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/apintus/data/wordpress
+      o: bind

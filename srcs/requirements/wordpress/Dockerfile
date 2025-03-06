@@ -9,7 +9,7 @@ RUN apt-get update && \
                         mariadb-client 
 
 # a verif pk copy diff de mariadb
-COPY ./conf/wp-conf.sh /wp-conf.sh
+COPY ./conf/wp-conf.sh /
 
 RUN chmod +x wp-conf.sh
 
