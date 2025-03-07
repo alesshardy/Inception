@@ -21,11 +21,12 @@ until mariadb -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SHOW DATABASES;
     sleep 5
 done
 
-# Remove existing WordPress files
-rm -rf /var/www/wordpress/*
-
 # Check if wp-config.php exists
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
+
+    # Remove existing WordPress files
+    rm -rf /var/www/wordpress/*
+    
     # wp core installation
     wp core download --allow-root
 
@@ -34,6 +35,9 @@ if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 
     wp core install --url="$DOMAIN_NAME" --title="$WP_TITLE" --admin_user="$WP_ADMIN_NAME" \
                     --admin_password="$WP_ADMIN_PASSWORD" --admin_email="$WP_ADMIN_EMAIL" --allow-root
+    
+    wp user create $WP_USER1_USER $WP_USER1_EMAIL --role=editor --user_pass=$WP_USER1_PASSWORD --allow-root
+
 else
     echo "WordPress is already installed."
 fi
