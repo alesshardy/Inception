@@ -20,12 +20,10 @@ until mariadb -h mariadb -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" -e "SHOW DATABASES;
     echo "Waiting for MariaDB to be ready..."
     sleep 5
 done
-
+    
 # Check if wp-config.php exists
 if [ ! -f "/var/www/wordpress/wp-config.php" ]; then
 
-    # Remove existing WordPress files
-    rm -rf /var/www/wordpress/*
     
     # wp core installation
     wp core download --allow-root
