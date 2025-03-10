@@ -27,7 +27,6 @@ PURPLE			=	\033[0;35m
 CYAN			=	\033[0;36m
 WHITE			=	\033[0;37m
 
-
 # **************************************************************************** #
 #                                   COMMAND                                    #
 # **************************************************************************** #
@@ -59,7 +58,7 @@ USER_HOME = $(shell echo ~)
 #                                    RULES                                     #
 # **************************************************************************** #
 
-all: check_docker check_env host create_volumes up
+all: create_volumes up
 
 up:
 	@$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) up -d --build
@@ -74,11 +73,17 @@ logs:
 
 clean:
 	@$(DOCKER_COMPOSE) -f $(DOCKER_COMPOSE_FILE) down -v --remove-orphans --rmi all
-	@echo "${YELLOW}> Cleaning $(NAME)'s objects has been done ❌${END}\n"
+	@echo "${YELLOW}> Docker down has been done ❌${END}\n"
 
 fclean:	clean
 	@sudo rm -rd $(USER_HOME)/data/mysql
-	@sudo rm -rd $(USER_HOME)/data/wordpress
-	@echo "${YELLOW}> Cleaning of $(NAME) has been done ❌${END}\n"
+	@sudo rm -rd $(USER_HOME)/data/wordpresss
+	@echo "${YELLOW}> Cleaning volumes has been done ❌${END}\n"
 
-.PHONY: all up down clean re fclean
+create_volumes:
+	@echo "${YELLOW}> Creating volumes...${END}"
+	@mkdir -p $(USER_HOME)/data/mysql
+	@mkdir -p $(USER_HOME)/data/wordpress
+	@echo "${GREEN}> Volumes created ✔️${END}\n"
+
+.PHONY: all up down clean re fclean create_volumes logs
