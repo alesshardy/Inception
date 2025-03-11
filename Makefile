@@ -31,12 +31,7 @@ WHITE			=	\033[0;37m
 #                                   COMMAND                                    #
 # **************************************************************************** #
 
-DOCKER_COMPOSE := $(shell \
-	if command -v docker compose > /dev/null 2>&1; then \
-		echo "docker compose"; \
-	else \
-		echo "docker-compose"; \
-	fi)
+DOCKER_COMPOSE := dokcer compose
 
 # **************************************************************************** #
 #                                   SOURCES                                    #
@@ -45,8 +40,6 @@ DOCKER_COMPOSE := $(shell \
 SRCS 			=	./srcs
 
 DOCKER_COMPOSE_FILE = $(SRCS)/docker-compose.yml
-
-HOSTS_TO_ADD := apintus.42.fr
 
 # **************************************************************************** #
 #                                   VOLUMES                                    #
@@ -77,7 +70,7 @@ clean:
 
 fclean:	clean
 	@sudo rm -rd $(USER_HOME)/data/mysql
-	@sudo rm -rd $(USER_HOME)/data/wordpresss
+	@sudo rm -rd $(USER_HOME)/data/wordpress
 	@echo "${YELLOW}> Cleaning volumes has been done ❌${END}\n"
 
 create_volumes:
