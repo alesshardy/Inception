@@ -8,7 +8,6 @@ RUN apt-get update && \
                         php-mysql \
                         mariadb-client 
 
-# a verif pk copy diff de mariadb
 COPY ./conf/wp-conf.sh /
 
 RUN chmod +x wp-conf.sh
